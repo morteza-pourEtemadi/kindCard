@@ -12,13 +12,13 @@ return [
     // Zarinpal gateway
     //--------------------------------
     'zarinpal' => [
-        'merchant-id'  => 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
-        'type'         => 'zarin-gate',             // Types: [zarin-gate || normal]
+        'merchant-id'  => '54637a2a-4214-11e7-8d8b-005056a205be',
+        'type'         => 'normal',             // Types: [zarin-gate || normal]
         'callback-url' => '/',
-        'server'       => 'germany',                // Servers: [germany || iran || test]
-        'email'        => 'email@gmail.com',
-        'mobile'       => '09xxxxxxxxx',
-        'description'  => 'description',
+        'server'       => 'iran',                // Servers: [germany || iran || test]
+        'email'        => 'e.morteza94@gmail.com',
+        'mobile'       => '09123553854',
+        'description'  => 'با تشکر از شما خیر گرامی. حساب مهربانی شما در حال شارژ می باشد. لطفا فرایند پرداخت را کامل نمایید',
     ],
 
     //--------------------------------

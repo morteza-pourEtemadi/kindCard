@@ -2,29 +2,23 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use Notifiable;
+    const STATUS_NOT_PAYED = 1;
+    const STATUS_PAYED = 2;
+    const STATUS_RECEIVED = 3;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'telegram_id', 'name', 'last_name', 'username', 'code', 'activity', 'status'
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function receipts()
+    {
+        return $this->hasMany(Receipt::class);
+    }
 }

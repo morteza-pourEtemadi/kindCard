@@ -19,8 +19,9 @@ class Users extends Migration
             $table->string('name', 100)->nullable();
             $table->string('last_name', 100)->nullable();
             $table->string('username', 100)->nullable();
-            $table->tinyInteger('status', false, true);
-            $table->longText('activities')->nullable();
+            $table->string('code', 8)->nullable();
+            $table->tinyInteger('status', false, true)->default(1);
+            $table->longText('activity')->nullable();
             $table->timestamps();
         });
     }

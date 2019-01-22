@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class Receipts extends Migration
+class Withdrawals extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,27 @@ class Receipts extends Migration
      */
     public function up()
     {
-        Schema::create('receipts', function (Blueprint $table) {
+        Schema::create('withdrawals', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id', false, true)->index('');
-            $table->text('transactions')->nullable();
-            $table->bigInteger('last_transaction_id', false, true)->nullable();
+            $table->unsignedInteger('user_id')->index('');
+            $table->unsignedInteger('category_id')->index('');
             $table->integer('price');
+            $table->string('card_number', 19);
+            $table->string('full_name');
             $table->unsignedTinyInteger('status')->default(1);
+            $table->string('tracking_code')->nullable();
             $table->timestamp('payed_at')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -38,6 +46,6 @@ class Receipts extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('receipts');
+        Schema::dropIfExists('withdrawals');
     }
 }

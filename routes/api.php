@@ -14,4 +14,4 @@ use \Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('', '')->name('');
+Route::post('webhook/{token}', 'ApiController@webhook')->name('webhook');
