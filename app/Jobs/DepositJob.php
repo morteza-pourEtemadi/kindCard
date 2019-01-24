@@ -68,7 +68,7 @@ class DepositJob extends Job
                 ]);
             }
             $replyMarkup = Keyboard::make()->inline();
-            $replyMarkup->row([$keyboard]);
+            $replyMarkup->row($keyboard);
 
             $this->telegram->sendMessage([
                 'chat_id' => $this->user->telegram_id,

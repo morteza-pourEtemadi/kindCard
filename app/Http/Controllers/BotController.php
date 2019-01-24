@@ -16,6 +16,13 @@ class BotController extends Controller
 {
     /** @var Card $card */
     protected $card;
+    protected $bots = [
+        '721417213:AAHo3TDlWq0th-yH7e7tJmo3JGGnH-ZbvgI' => 'kind_card_bot',
+        '738430620:AAHFxDgdHy-pGedhV_yts0-msYlfdxz2S7w' => 'kindCardBot',
+        '792906820:AAE95ig7jVTTGcBrx7MBgE8eKQV8jiQ5XT4' => 'kind_kart_bot',
+        '634840089:AAFYcfYcrMGF5k0rJTFpekJ1cBkUw0G5xQk' => 'kindKartBot',
+        '795096806:AAFRfjiQFub0pPTAysA3sh6qmxIGHraJDZg' => 'kindCartBot',
+    ];
 
     public function __construct()
     {
@@ -63,13 +70,16 @@ class BotController extends Controller
         } catch (NotFoundTransactionException $e) {
             $catchMessage = $e->getMessage();
         } catch (\Exception $e) {
-            $catchMessage = $e->getMessage();
+            $catchMessage = "متاسفانه مشکلی در تراکنش به وجود آمده است. در صورتی که مبلغ تراکنش تا 72 ساعت آینده به حساب شما واریز نشد، با آی دی @Ultimate_Developers_Admin تماس حاصل فرمایید.";
         }
 
         if (isset($catchMessage)) {
-            $message = "متاسفانه مشکلی در تراکنش به وجود آمده است. در صورتی که مبلغ تراکنش تا 72 ساعت آینده به حساب شما واریز نشد، با آی دی @Ultimate_Developers_Admin تماس حاصل فرمایید.";
+            $message = $catchMessage;
         }
 
         $this->dispatchNow(new PaymentCallbackJob($token, $userId, $message));
+
+        $username = $this->bots[$token];
+        return view('payment-result', compact('username'));
     }
 }
