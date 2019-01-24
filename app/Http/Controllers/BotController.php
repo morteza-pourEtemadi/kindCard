@@ -11,6 +11,7 @@ use Larabookir\Gateway\Exceptions\NotFoundTransactionException;
 use Larabookir\Gateway\Exceptions\PortNotFoundException;
 use Larabookir\Gateway\Exceptions\RetryException;
 use Larabookir\Gateway\Gateway;
+use Larabookir\Gateway\Zarinpal\ZarinpalException;
 
 class BotController extends Controller
 {
@@ -69,8 +70,10 @@ class BotController extends Controller
             $catchMessage = $e->getMessage();
         } catch (NotFoundTransactionException $e) {
             $catchMessage = $e->getMessage();
-        } catch (\Exception $e) {
-            $catchMessage = "متاسفانه مشکلی در تراکنش به وجود آمده است. در صورتی که مبلغ تراکنش تا 72 ساعت آینده به حساب شما واریز نشد، با آی دی @Ultimate_Developers_Admin تماس حاصل فرمایید.";
+        } catch (ZarinpalException $e) {
+            dd($e);
+//        } catch (\Exception $e) {
+//            $catchMessage = "متاسفانه مشکلی در تراکنش به وجود آمده است. در صورتی که مبلغ تراکنش تا 72 ساعت آینده به حساب شما واریز نشد، با آی دی @Ultimate_Developers_Admin تماس حاصل فرمایید.";
         }
 
         if (isset($catchMessage)) {
@@ -80,6 +83,6 @@ class BotController extends Controller
         $this->dispatchNow(new PaymentCallbackJob($token, $userId, $message));
 
         $username = $this->bots[$token];
-        return view('payment-result', compact('username'));
+//        return view('payment-result', compact('username'));
     }
 }
