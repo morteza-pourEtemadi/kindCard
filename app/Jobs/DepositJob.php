@@ -53,6 +53,9 @@ class DepositJob extends Job
                 $price = $this->getPriceAnyWay($input);
                 $text = 'رقم معادل ورودی شما برابر است با: ' . $price . " تومان\n\n";
             }
+            if ($price > 9999999999999) {
+                $price = 9999999999999;
+            }
             $url = $this->getPaymentLink($this->user, $price);
             if ($url == '') {
                 $text = 'مشکلی در ارتباط با درگاه بانکی پیش آمده است. لطفا دوباره تلاش نمایید.';

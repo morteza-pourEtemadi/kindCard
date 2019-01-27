@@ -71,9 +71,9 @@ class BotController extends Controller
         } catch (NotFoundTransactionException $e) {
             $catchMessage = $e->getMessage();
         } catch (ZarinpalException $e) {
-            dd($e);
-//        } catch (\Exception $e) {
-//            $catchMessage = "متاسفانه مشکلی در تراکنش به وجود آمده است. در صورتی که مبلغ تراکنش تا 72 ساعت آینده به حساب شما واریز نشد، با آی دی @Ultimate_Developers_Admin تماس حاصل فرمایید.";
+            $catchMessage = ZarinpalException::$errors[$e->getCode()];
+        } catch (\Exception $e) {
+            $catchMessage = "متاسفانه مشکلی در تراکنش به وجود آمده است. در صورتی که مبلغ تراکنش تا 72 ساعت آینده به حساب شما واریز نشد، با آی دی @Ultimate_Developers_Admin تماس حاصل فرمایید.";
         }
 
         if (isset($catchMessage)) {
@@ -83,6 +83,6 @@ class BotController extends Controller
         $this->dispatchNow(new PaymentCallbackJob($token, $userId, $message));
 
         $username = $this->bots[$token];
-//        return view('payment-result', compact('username'));
+        return view('payment-result', compact('username'));
     }
 }

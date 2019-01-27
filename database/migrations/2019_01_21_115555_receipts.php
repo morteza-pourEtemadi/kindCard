@@ -18,7 +18,7 @@ class Receipts extends Migration
             $table->integer('user_id', false, true)->index('');
             $table->text('transactions')->nullable();
             $table->bigInteger('last_transaction_id', false, true)->nullable();
-            $table->integer('price');
+            $table->unsignedBigInteger('price');
             $table->unsignedTinyInteger('status')->default(1);
             $table->timestamp('payed_at')->nullable();
             $table->timestamps();
