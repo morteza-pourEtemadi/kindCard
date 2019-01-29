@@ -16,10 +16,11 @@ class Withdrawals extends Migration
         Schema::create('withdrawals', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->index('');
-            $table->unsignedInteger('category_id')->index('');
+            $table->unsignedInteger('category_id')->index('')->nullable();
             $table->integer('price');
-            $table->string('card_number', 19);
-            $table->string('full_name');
+            $table->string('card_number', 19)->nullable();
+            $table->string('full_name')->nullable();
+            $table->string('mobile', 11)->nullable();
             $table->unsignedTinyInteger('status')->default(1);
             $table->string('tracking_code')->nullable();
             $table->timestamp('payed_at')->nullable();

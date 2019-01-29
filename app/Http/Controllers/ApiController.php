@@ -88,8 +88,8 @@ class ApiController extends Controller
             }
 
             // Main Menu Checking
-            if ($update->getMessage() && is_string($update->getMessage()->getText())) {
-                $text = $update->getMessage()->getText();
+            if ($update->getMessage() && is_string($update->getMessage()->text)) {
+                $text = $update->getMessage()->text;
 
                 if (isset($this->mainKeyboard[$text])) {
                     $data = explode('.', $this->mainKeyboard[$text]);

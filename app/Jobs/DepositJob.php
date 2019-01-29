@@ -45,7 +45,7 @@ class DepositJob extends Job
     {
         $activity = json_decode($this->user->activity, true);
         if (isset($activity['step']) && $activity['step'] == 1) {
-            $input = $this->update->getMessage()->getText();
+            $input = $this->update->getMessage()->text;
             $text = '';
             if (is_numeric($this->changeToNormal($input))) {
                 $price = $this->changeToNormal($input);

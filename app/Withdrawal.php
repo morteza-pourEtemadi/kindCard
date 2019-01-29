@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Withdrawal extends Model
 {
-    const STATUS_NOT_PAYED = 1;
-    const STATUS_PAYED = 2;
-    const STATUS_CANCELED = 3;
+    const STATUS_NOT_COMPLETED = 1;
+    const STATUS_NOT_PAYED = 2;
+    const STATUS_PAYED = 3;
+    const STATUS_CANCELED = 4;
 
     protected $fillable = [
-        'user_id', 'category_id', 'price', 'card_number', 'full_name', 'status', 'tracking_code', 'payed_at'
+        'user_id', 'category_id', 'price', 'card_number', 'full_name', 'mobile', 'status', 'tracking_code', 'payed_at'
     ];
 
     /**

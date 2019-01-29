@@ -21,4 +21,12 @@ class User extends Model
     {
         return $this->hasMany(Receipt::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function withdrawals()
+    {
+        return $this->hasMany(Withdrawal::class);
+    }
 }

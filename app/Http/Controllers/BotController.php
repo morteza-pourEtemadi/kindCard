@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Card;
 use App\Jobs\PaymentCallbackJob;
 use App\Receipt;
+use App\Withdrawal;
 use Illuminate\Http\Request;
 use Larabookir\Gateway\Exceptions\InvalidRequestException;
 use Larabookir\Gateway\Exceptions\NotFoundTransactionException;
@@ -84,5 +85,22 @@ class BotController extends Controller
 
         $username = $this->bots[$token];
         return view('payment-result', compact('username'));
+    }
+
+    /**
+     * @param $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function withdrawalVerify($token)
+    {
+        try {
+            $withdrawal = Withdrawal::query()->find(base64_decode($token));
+            $withdrawal->status = Withdrawal::STATUS_NOT_PAYED;
+            $withdrawal->save();
+
+            return view('withdrawal-result', compact('token'));
+        } catch (\Exception $e) {
+            throw new \InvalidArgumentException('InvalidParameters! Go Away.', 403);
+        }
     }
 }
