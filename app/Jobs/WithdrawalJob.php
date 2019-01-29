@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Card;
 use App\Category;
+use App\Helpers\CryptHelper;
 use App\Helpers\Telegram;
 use App\User;
 use App\Withdrawal;
@@ -60,14 +61,14 @@ class WithdrawalJob extends Job
 
                     $keyboard = Keyboard::inlineButton([
                         'text' => 'تکمیل فرایند',
-                        'url' => route('withdrawal.verify', ['token' => base64_encode($withdrawal->id)])
+                        'url' => route('withdrawal.verify', ['token' => CryptHelper::encryptData($withdrawal->id)])
                     ]);
                     $replyMarkup = Keyboard::make()->inline();
                     $replyMarkup->row($keyboard);
 
                     $this->telegram->sendMessage([
                         'chat_id' => $this->user->telegram_id,
-                        'text' => 'برای تکمیل فرایند دریافت وجه، روی دکمه ی زیر کلیک فرمایید.',
+                        'text' => 'برای تکمیل فرایند دریافت وجه، «حتما» روی دکمه ی زیر کلیک فرمایید.',
                         'reply_markup' => $replyMarkup,
                     ]);
 
@@ -207,8 +208,8 @@ class WithdrawalJob extends Job
 
             $text = "الان کل موجودی حساب " . number_format($card->balance);
             $text .= " تومنه. با ادامه ی فرآیند، با تصمیم سیستم، یه بخشی از این مبلغ به شما تعلق می گیره.\n";
-            $text .= "و لازمه بدونید که تو این فرآیند، شما باید شماره کارت، نام و نام خانوادگی ثبت شده روی کارت 
-            و یک شماره موبایل رو در اختیار ربات بذارید، تا بتونه عملیات پرداخت رو انجام بده.\n\n";
+            $text .= "و لازمه بدونید که تو این فرآیند، شما باید شماره کارت، نام و نام خانوادگی ثبت شده روی کارت ";
+            $text .= "و یک شماره موبایل رو در اختیار ربات بذارید، تا بتونه عملیات پرداخت رو انجام بده.\n\n";
             $text .= "ادامه بدیم؟";
 
             $keyboard = [

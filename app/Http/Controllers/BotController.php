@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Card;
+use App\Helpers\CryptHelper;
 use App\Jobs\PaymentCallbackJob;
 use App\Receipt;
 use App\Withdrawal;
@@ -94,7 +95,7 @@ class BotController extends Controller
     public function withdrawalVerify($token)
     {
         try {
-            $withdrawal = Withdrawal::query()->find(base64_decode($token));
+            $withdrawal = Withdrawal::query()->find(CryptHelper::decryptData($token));
             $withdrawal->status = Withdrawal::STATUS_NOT_PAYED;
             $withdrawal->save();
 
