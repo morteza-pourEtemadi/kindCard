@@ -41,6 +41,8 @@ class BotController extends Controller
      */
     public function paymentVerify(Request $request, $token)
     {
+        $status = 'fail';
+        $catchMessage = '';
         $data = explode('/*/', base64_decode($token));
         $token = $data[0];
         if (isset($data[1])) {
@@ -62,6 +64,7 @@ class BotController extends Controller
 
                 $message = "پرداخت با موفقیت انجام شد.\n\n";
                 $message .= "با تشکر از شما خیر گرامی، موجودی حساب مهربانی به <b>" . $this->card->balance . "</b> تومان افزایش پیدا کرد.";
+                $status = 'success';
             } else {
                 $catchMessage = 'transactionNotFound';
             }
@@ -79,14 +82,15 @@ class BotController extends Controller
             $catchMessage = "متاسفانه مشکلی در تراکنش به وجود آمده است. در صورتی که مبلغ تراکنش تا 72 ساعت آینده به حساب شما واریز نشد، با آی دی @Ultimate_Developers_Admin تماس حاصل فرمایید.";
         }
 
-        if (isset($catchMessage)) {
+        if ($status == 'fail') {
             $message = $catchMessage;
         }
 
         $this->dispatchNow(new PaymentCallbackJob($token, $userId, $message));
 
         $username = $this->bots[$token];
-        return view('payment-result', compact('username'));
+        $balance = $this->card->balance;
+        return view('payment-result', compact('username', 'balance', 'status', 'catchMessage'));
     }
 
     /**
