@@ -97,14 +97,15 @@ class BotController extends Controller
      * @param $token
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function withdrawalVerify($token)
+    public function withdrawalVerify($token, $hash)
     {
         try {
-            $withdrawal = Withdrawal::query()->find(CryptHelper::decryptData($token));
+            $withdrawal = Withdrawal::query()->find(CryptHelper::decryptData($hash));
             $withdrawal->status = Withdrawal::STATUS_NOT_PAYED;
             $withdrawal->save();
 
-            return view('withdrawal-result', compact('token'));
+            $username = $this->bots[$token];
+            return view('withdrawal-result', compact('hash', 'username'));
         } catch (\Exception $e) {
             throw new \InvalidArgumentException('InvalidParameters! Go Away.', 403);
         }

@@ -12,7 +12,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Lcobucci\JWT\Signer\Key;
 use Telegram\Bot\Keyboard\Keyboard;
 use Telegram\Bot\Objects\Update;
 
@@ -216,7 +215,7 @@ class WithdrawalJob extends Job
 
                     $keyboard = Keyboard::inlineButton([
                         'text' => 'تکمیل فرایند',
-                        'url' => route('withdrawal.verify', ['token' => CryptHelper::encryptData($withdrawal->id)])
+                        'url' => route('withdrawal.verify', ['token' => $this->telegram->accessToken, 'hash' => CryptHelper::encryptData($withdrawal->id)])
                     ]);
                     $replyMarkup = Keyboard::make()->inline();
                     $replyMarkup->row($keyboard);

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'WebController@index')->name('index');
 Route::get('/payment/verify/{token}', 'BotController@paymentVerify')->name('payment.verify');
-Route::get('/withdrawal/verify/{token}', 'BotController@withdrawalVerify')->name('withdrawal.verify');
+Route::get('/withdrawal/verify/{token}/{hash}', 'BotController@withdrawalVerify')->name('withdrawal.verify');
 
 Route::prefix('admin')->group(function () {
     Route::get('login', 'BotController@loginPage')->name('admin.login');
