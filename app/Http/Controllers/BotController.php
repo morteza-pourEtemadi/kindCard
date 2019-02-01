@@ -8,6 +8,7 @@ use App\Jobs\PaymentCallbackJob;
 use App\Receipt;
 use App\Withdrawal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Larabookir\Gateway\Exceptions\InvalidRequestException;
 use Larabookir\Gateway\Exceptions\NotFoundTransactionException;
 use Larabookir\Gateway\Exceptions\PortNotFoundException;
@@ -102,6 +103,47 @@ class BotController extends Controller
             return view('withdrawal-result', compact('token'));
         } catch (\Exception $e) {
             throw new \InvalidArgumentException('InvalidParameters! Go Away.', 403);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function cancelUnCompleteWithdrawals()
+    {
+        $till = date('Y-m-d H:i:s', time() - 30 * 3600);
+        $withdrawalsQuery = Withdrawal::query()
+            ->where('status', Withdrawal::STATUS_NOT_COMPLETED)
+            ->whereDate('created_at', '<', $till);
+        $withdrawals = $withdrawalsQuery->get();
+
+        /** @var Withdrawal $withdrawal */
+        foreach ($withdrawals as $withdrawal) {
+            $this->card->balance += $withdrawal->price;
+            $this->card->save();
+            $withdrawal->status = Withdrawal::STATUS_CANCELED;
+            $withdrawal->save();
+        }
+
+        return $withdrawalsQuery->count() . ' withdrawals canceled';
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function loginPage(Request $request)
+    {
+        if ($request->method() == 'GET') {
+            return view('admin.login');
+        } else {
+            $data = $request->all();
+            if (isset($data['username']) && isset($data['password']) && $data['username'] == '101538817' && $data['password'] == 'qazwsx') {
+                Cookie::queue(Cookie::forever('user', base64_encode(base64_encode('101538817'))));
+                return redirect()->back();
+            } else {
+                return view('admin.login');
+            }
         }
     }
 }

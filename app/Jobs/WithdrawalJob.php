@@ -42,7 +42,6 @@ class WithdrawalJob extends Job
         $this->data = $data;
     }
 
-
     /**
      * @return bool
      * @throws \Telegram\Bot\Exceptions\TelegramSDKException
@@ -51,26 +50,100 @@ class WithdrawalJob extends Job
     {
         $card = Card::query()->find(1);
         $activity = json_decode($this->user->activity, true);
-        if (isset($activity['step'])) {
-            if ($activity['step'] == 4 && isset($activity['subStep'])) {
-                /** @var Withdrawal $withdrawal */
-                $withdrawal = Withdrawal::query()->find($activity['wid']);
-                if ($activity['subStep'] == 1) {
-                    $category = $this->getCategory($this->update->getMessage()->text);
-                    $withdrawal->category()->associate($category);
+        if (!isset($activity['step'])) {
+            $activity = [
+                'job' => 'WithdrawalJob',
+                'step' => 1
+            ];
+            $this->user->activity = json_encode($activity);
+            $this->user->save();
 
-                    $keyboard = Keyboard::inlineButton([
-                        'text' => 'تکمیل فرایند',
-                        'url' => route('withdrawal.verify', ['token' => CryptHelper::encryptData($withdrawal->id)])
+            $text = "الان کل موجودی حساب " . number_format($card->balance);
+            $text .= " تومنه. با ادامه ی فرآیند، با تصمیم سیستم، یه بخشی از این مبلغ به شما تعلق می گیره.\n";
+            $text .= "و لازمه بدونید که تو این فرآیند، شما باید شماره کارت، نام و نام خانوادگی ثبت شده روی کارت ";
+            $text .= "و یک شماره موبایل رو در اختیار ربات بذارید، تا بتونه عملیات پرداخت رو انجام بده.\n\n";
+            $text .= "ادامه بدیم؟";
+
+            $keyboard = [
+                ['قبول دارم. ادامه'],
+                ['نه! برگرد'],
+            ];
+            $replyMarkup = Keyboard::make([
+                'keyboard' => $keyboard,
+                'resize_keyboard' => true,
+            ]);
+
+            $this->telegram->sendMessage([
+                'chat_id' => $this->user->telegram_id,
+                'text' => $text,
+                'reply_markup' => $replyMarkup
+            ]);
+        } else {
+            if ($activity['step'] == 1) {
+                if ($this->update->getMessage()->text == 'قبول دارم. ادامه') {
+                    $chosen = rand(10, 75);
+                    $price = floor($card->balance * $chosen / 100);
+                    if ($price > 10000000) {
+                        $price = 10000000;
+                    }
+                    if ($price < 10000) {
+                        if ($chosen < 60) {
+                            $price = floor($card->balance * 0.6);
+                        }
+                    }
+                    $card->balance -= $price;
+                    $card->save();
+
+                    $activity['step'] = 2;
+                    $activity['price'] = $price;
+                    $this->user->activity = json_encode($activity);
+                    $this->user->save();
+
+                    $text = "مبلغ مشخص شده از سمت سیستم برابر است با: $price تومان\n";
+                    $keyboard = [
+                        ['ادامه'],
+                        ['انصراف'],
+                    ];
+                    $replyMarkup = Keyboard::make([
+                        'keyboard' => $keyboard,
+                        'resize_keyboard' => true,
                     ]);
-                    $replyMarkup = Keyboard::make()->inline();
-                    $replyMarkup->row($keyboard);
-
                     $this->telegram->sendMessage([
                         'chat_id' => $this->user->telegram_id,
-                        'text' => 'برای تکمیل فرایند دریافت وجه، «حتما» روی دکمه ی زیر کلیک فرمایید.',
-                        'reply_markup' => $replyMarkup,
+                        'text' => $text,
+                        'reply_markup' => $replyMarkup
                     ]);
+                } else {
+                    $this->dispatchNow(new MainMenuJob($this->telegram, $this->update, $this->user));
+                    return true;
+                }
+            } elseif ($activity['step'] == 2) {
+                if ($this->update->getMessage()->text == 'ادامه') {
+                    $withdrawal = new Withdrawal([
+                        'price' => $activity['price'],
+                        'status' => Withdrawal::STATUS_NOT_COMPLETED
+                    ]);
+                    $this->user->withdrawals()->save($withdrawal);
+                    $withdrawal->save();
+
+                    $activity['step'] = 3;
+                    $activity['subStep'] = 1;
+                    $activity['wid'] = $withdrawal->id;
+                    unset($activity['price']);
+                    $this->user->activity = json_encode($activity);
+                    $this->user->save();
+
+                    $replyMarkup = Keyboard::remove([
+                        'remove_keyboard' => true
+                    ]);
+                    $this->telegram->sendMessage([
+                        'chat_id' => $this->user->telegram_id,
+                        'text' => "حالا شماره کارت 16 رقمی خود را بدون خط فاصله و علامت اضافی وارد نمایید.",
+                        'reply_markup' => $replyMarkup
+                    ]);
+                } else {
+                    $card->balance += $activity['price'];
+                    $card->save();
 
                     $this->dispatchNow(new MainMenuJob($this->telegram, $this->update, $this->user));
                     return true;
@@ -134,98 +207,30 @@ class WithdrawalJob extends Job
                     'chat_id' => $this->user->telegram_id,
                     'text' => $text
                 ]);
-            } elseif ($activity['step'] == 2) {
-                if ($this->update->getMessage()->text == 'ادامه') {
-                    $withdrawal = new Withdrawal([
-                        'price' => $activity['price'],
-                        'status' => Withdrawal::STATUS_NOT_COMPLETED
-                    ]);
-                    $this->user->withdrawals()->save($withdrawal);
-                    $withdrawal->save();
+            } elseif ($activity['step'] == 4 && isset($activity['subStep'])) {
+                /** @var Withdrawal $withdrawal */
+                $withdrawal = Withdrawal::query()->find($activity['wid']);
+                if ($activity['subStep'] == 1) {
+                    $category = $this->getCategory($this->update->getMessage()->text);
+                    $withdrawal->category()->associate($category);
 
-                    $activity['step'] = 3;
-                    $activity['subStep'] = 1;
-                    $activity['wid'] = $withdrawal->id;
-                    unset($activity['price']);
-                    $this->user->activity = json_encode($activity);
-                    $this->user->save();
-
-                    $replyMarkup = Keyboard::remove([
-                        'remove_keyboard' => true
+                    $keyboard = Keyboard::inlineButton([
+                        'text' => 'تکمیل فرایند',
+                        'url' => route('withdrawal.verify', ['token' => CryptHelper::encryptData($withdrawal->id)])
                     ]);
+                    $replyMarkup = Keyboard::make()->inline();
+                    $replyMarkup->row($keyboard);
+
                     $this->telegram->sendMessage([
                         'chat_id' => $this->user->telegram_id,
-                        'text' => "حالا شماره کارت 16 رقمی خود را بدون خط فاصله و علامت اضافی وارد نمایید.",
-                        'reply_markup' => $replyMarkup
+                        'text' => 'برای تکمیل فرایند دریافت وجه، «حتما» روی دکمه ی زیر کلیک فرمایید.',
+                        'reply_markup' => $replyMarkup,
                     ]);
-                } else {
-                    $this->dispatchNow(new MainMenuJob($this->telegram, $this->update, $this->user));
-                    return true;
-                }
-            } elseif ($activity['step'] == 1) {
-                if ($this->update->getMessage()->text == 'قبول دارم. ادامه') {
-                    $chosen = rand(10, 75);
-                    $price = floor($card->balance * $chosen / 100);
-                    if ($price > 10000000) {
-                        $price = 10000000;
-                    }
-                    if ($price < 10000) {
-                        if ($chosen < 60) {
-                            $price = floor($card->balance * 0.6);
-                        }
-                    }
-                    $activity['step'] = 2;
-                    $activity['price'] = $price;
-                    $this->user->activity = json_encode($activity);
-                    $this->user->save();
 
-                    $text = "مبلغ مشخص شده از سمت سیستم برابر است با: $price تومان\n";
-                    $keyboard = [
-                        ['ادامه'],
-                        ['انصراف'],
-                    ];
-                    $replyMarkup = Keyboard::make([
-                        'keyboard' => $keyboard,
-                        'resize_keyboard' => true,
-                    ]);
-                    $this->telegram->sendMessage([
-                        'chat_id' => $this->user->telegram_id,
-                        'text' => $text,
-                        'reply_markup' => $replyMarkup
-                    ]);
-                } else {
                     $this->dispatchNow(new MainMenuJob($this->telegram, $this->update, $this->user));
                     return true;
                 }
             }
-        } else {
-            $activity = [
-                'job' => 'WithdrawalJob',
-                'step' => 1
-            ];
-            $this->user->activity = json_encode($activity);
-            $this->user->save();
-
-            $text = "الان کل موجودی حساب " . number_format($card->balance);
-            $text .= " تومنه. با ادامه ی فرآیند، با تصمیم سیستم، یه بخشی از این مبلغ به شما تعلق می گیره.\n";
-            $text .= "و لازمه بدونید که تو این فرآیند، شما باید شماره کارت، نام و نام خانوادگی ثبت شده روی کارت ";
-            $text .= "و یک شماره موبایل رو در اختیار ربات بذارید، تا بتونه عملیات پرداخت رو انجام بده.\n\n";
-            $text .= "ادامه بدیم؟";
-
-            $keyboard = [
-                ['قبول دارم. ادامه'],
-                ['نه! برگرد'],
-            ];
-            $replyMarkup = Keyboard::make([
-                'keyboard' => $keyboard,
-                'resize_keyboard' => true,
-            ]);
-
-            $this->telegram->sendMessage([
-                'chat_id' => $this->user->telegram_id,
-                'text' => $text,
-                'reply_markup' => $replyMarkup
-            ]);
         }
         return true;
     }
