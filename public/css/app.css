@@ -1092,10 +1092,22 @@
     content: "\E260"
 }
 
-a, p, span, h1, h2, h3, h4, h5, h6, button, input {
+a, p, span, h1, h2, h3, h4, h5, h6, button, input, pre, li, div {
     font-family: IRANSans, sans-serif !important;
 }
 
+.f-400 {
+    font-weight: 400 !important;
+}
+.f-500 {
+    font-weight: 500 !important;
+}
+.f-600 {
+    font-weight: 600 !important;
+}
+.f-700 {
+    font-weight: 700 !important;
+}
 /*color: #3cc6ed;*/
 /*color: #5ce5aa;*/
 /*color: #f197a2;*/

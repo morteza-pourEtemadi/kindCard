@@ -1,0 +1,51 @@
+.fancy-hr {
+    width: 65%;
+    border: solid 0.5px #ccc;
+    box-shadow: 0 0 3px #d0cb69;
+}
+
+.card-text {
+    height: 150px;
+}
+
+.text-white {
+    color: #eee !important;
+}
+
+.terms {
+    line-height: 250%;
+}
+
+.terms li {
+    padding-bottom: 1.7rem;
+}
+
+.contact span {
+    position: relative;
+    top: -25%;
+    font-size: 1.4rem;
+}
+
+#telegram {
+    color: #40a7e3;
+}
+
+#telegram:hover {
+    color: #1d71a3;
+}
+
+#text {
+    color: #efc82b;
+}
+
+#text:hover {
+    color: #e0582a;
+}
+
+#mail {
+    color: #f2594f;
+}
+
+#mail:hover {
+    color: #a01a11;
+}
