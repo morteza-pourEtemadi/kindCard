@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Card;
 use App\Category;
+use Illuminate\Http\Request;
 
 class WebController extends Controller
 {
@@ -80,5 +81,43 @@ class WebController extends Controller
         }
 
         return $groupedCategories;
+    }
+
+    public function mailChimpAction(Request $request)
+    {
+        $authKey = "debc7d7b322288a158105b7bdd7fb61b-us20";
+        $server = explode('-', $authKey)[1];
+
+        $url = 'https://' . $server . '.api.mailchimp.com/3.0/lists/b0dab3bcd5/members';
+        $payload = [
+            'email_address' => $request->post('email'),
+            'status' => 'subscribed',
+        ];
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($curl, CURLOPT_HEADER, 1);
+        curl_setopt($curl, CURLOPT_USERPWD, "sanjeman:" . $authKey);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_exec($curl);
+
+        if (curl_error($curl)) {
+            $response = [
+                'type' => 'danger',
+                'message' => 'خطایی پیش آمده است. لطفا بعدا مجددا تلاش نمایید'
+            ];
+        } else {
+            $response = [
+                'type' => 'success',
+                'message' => 'شما با موفقیت در خبرنامه حساب مهربانی عضو شدید'
+            ];
+        }
+        curl_close($curl);
+
+        return response()->json($response);
     }
 }

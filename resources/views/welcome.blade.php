@@ -327,15 +327,15 @@
                 <h1 class="text-white">آیا مایلید از ما بیشتر بدانید؟</h1>
             </div>
             <div class="col-lg-6 col-md-8 col-sm-12">
-                <form method="post" class="subscribe_form relative"
-                      action="https://kindcard.us20.list-manage.com/subscribe/post?u=b69469a39e542a58890b2bda5&amp;id=b0dab3bcd5">
+                <form class="subscribe_form relative">
+                    {{ csrf_field() }}
                     <div class="row">
                         <div class="col-lg-10 col-md-8 col-sm-12">
-                            <input name="EMAIL" type="email" placeholder="آدرس ایمیل شما" required=""
+                            <input name="EMAIL" type="email" placeholder="آدرس ایمیل شما" required="" id="sub-email"
                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'آدرس ایمیل'">
                         </div>
                         <div class="col-lg-2 col-md-4 col-sm-12">
-                            <button class="primary_btn yellow_btn btn sub-btn rounded">اشتراک در خبرنامه</button>
+                            <a class="primary_btn yellow_btn btn sub-btn rounded">اشتراک در خبرنامه</a>
                         </div>
                     </div>
                     <div class="info"></div>
@@ -445,42 +445,38 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="theme/js/jquery-3.2.1.min.js"></script>
-<script src="theme/js/popper.js"></script>
-<script src="theme/js/bootstrap.min.js"></script>
-<script src="theme/js/stellar.js"></script>
-<script src="theme/vendors/lightbox/simpleLightbox.min.js"></script>
-<script src="theme/vendors/nice-select/js/jquery.nice-select.min.js"></script>
-<script src="theme/js/jquery.ajaxchimp.min.js"></script>
-<script src="theme/js/mail-script.js"></script>
-<script src="theme/js/countdown.js"></script>
-<!--gmaps Js-->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-<script src="theme/js/gmaps.min.js"></script>
-<script src="theme/js/theme.js"></script>
-<script>
+<script type="text/javascript" src="{{asset('theme/js/jquery-3.2.1.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('theme/js/popper.js')}}"></script>
+<script type="text/javascript" src="{{asset('theme/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('bootstrap/bootstrap-notify.js')}}"></script>
+<script type="text/javascript" src="{{asset('theme/js/stellar.js')}}"></script>
+<script type="text/javascript" src="{{asset('theme/vendors/lightbox/simpleLightbox.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('theme/vendors/nice-select/js/jquery.nice-select.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('theme/js/theme.js')}}"></script>
+
+<script type="text/javascript">
     $(document).ready(function () {
         @for($i = 0; $i < 6; $i++)
-        $({countNum: 0}).animate({countNum: $('#count-{{$i}}').data('val')}, {
-            duration: 5000,
-            easing: 'linear',
-            step: function () {
-                $('#count-{{$i}}').text(Math.floor(this.countNum));
-            },
-            complete: function () {
-                $('#count-{{$i}}').text(this.countNum);
-            }
-        });
-        $({countNum: 0}).animate({countNum: $('#balance-{{$i}}').data('val')}, {
-            duration: 5000,
-            easing: 'linear',
-            step: function () {
-                $('#balance-{{$i}}').text(Math.floor(this.countNum) + ' تومان');
-            },
-            complete: function () {
-                $('#balance-{{$i}}').text(this.countNum + ' تومان');
-            }
-        });
+            $({countNum: 0}).animate({countNum: $('#count-{{$i}}').data('val')}, {
+                duration: 5000,
+                easing: 'linear',
+                step: function () {
+                    $('#count-{{$i}}').text(Math.floor(this.countNum));
+                },
+                complete: function () {
+                    $('#count-{{$i}}').text(this.countNum);
+                }
+            });
+            $({countNum: 0}).animate({countNum: $('#balance-{{$i}}').data('val')}, {
+                duration: 5000,
+                easing: 'linear',
+                step: function () {
+                    $('#balance-{{$i}}').text(Math.floor(this.countNum) + ' تومان');
+                },
+                complete: function () {
+                    $('#balance-{{$i}}').text(this.countNum + ' تومان');
+                }
+            });
         @endfor
 
         $('a[href*="#"]').not('[href="#"]').click(function (event) {
@@ -508,6 +504,32 @@
                 }
             }
         });
+
+        $('.sub-btn').click(function () {
+            var val = $('#sub-email').val();
+            if (val === undefined || val == null || val === '') {
+                return;
+            }
+
+            $.ajax({
+                method: 'POST',
+                url: '{{route('join.newsletter')}}',
+                data: {
+                    _token: '{{csrf_token()}}',
+                    email: val
+                },
+            }).done(function (response) {
+                if (response.type ==='success') {
+                    $('#sub-email').val('').text('');
+                }
+                $.notify({
+                    message: response.message
+                }, {
+                    z_index: 1000000,
+                    type: response.type
+                });
+            });
+        })
     })
 </script>
 </body>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'WebController@index')->name('index');
+Route::post('/join-newsletter', 'WebController@mailChimpAction')->name('join.newsletter');
 Route::get('/payment/verify/{token}', 'BotController@paymentVerify')->name('payment.verify');
 Route::get('/withdrawal/verify/{token}/{hash}', 'BotController@withdrawalVerify')->name('withdrawal.verify');
 
