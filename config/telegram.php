@@ -35,7 +35,7 @@ return [
         'mybot' => [
             'username' => 'TelegramBot',
             'token' => '721417213:AAHo3TDlWq0th-yH7e7tJmo3JGGnH-ZbvgI',
-            'webhook_url' => 'https://kindCard.ultimate-developers.ir/api/webhook',
+            'webhook_url' => 'https://kindCard.ir/api/webhook',
             'commands' => [],
         ],
 

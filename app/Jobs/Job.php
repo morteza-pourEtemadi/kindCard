@@ -171,7 +171,7 @@ abstract class Job
         try {
             $gateway = Gateway::$payPort();
             $uri = 'payment/verify/' . base64_encode($this->telegram->accessToken . '/*/' . $user->id);
-            $gateway->setCallback(env('WEB_URL', 'https://kindCard.ultimate-developers.ir/') . $uri);
+            $gateway->setCallback(env('WEB_URL', 'https://kindCard.ir/') . $uri);
             $gateway->price($receipt->price * 10)->ready();
             $transID = $gateway->transactionId();
 
