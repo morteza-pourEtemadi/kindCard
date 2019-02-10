@@ -109,10 +109,10 @@
                 </div>
             </div>
         </div>
-        <div class="text-center pb-3">
+        <div class="text-center pb-3" dir="rtl">
             <h3>به همین راحتی</h3>
             <p>
-                متن درباره حساب مهربانی
+                ایده‌ی اولیه‌ی این حساب، از دیوارهای مهربانی گرفته شده است.
             </p>
         </div>
     </div>
@@ -322,24 +322,24 @@
 <!--================ Start Subscribe Area =================-->
 <div class="container">
     <div class="subscribe_area" dir="rtl">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="d-flex align-items-center">
-                    <h1 class="text-white">آیا مایلید از ما بیشتر بدانید؟</h1>
-                    <div id="mc_embed_signup">
-                        <form target="_blank"
-                              action="https://kindcard.us20.list-manage.com/subscribe/post?u=b69469a39e542a58890b2bda5&amp;id=b0dab3bcd5"
-                              method="post" class="subscribe_form relative">
-                            <div class="input-group d-flex flex-row mr-20">
-                                <input name="EMAIL" placeholder="آدرس ایمیل شما" onfocus="this.placeholder = ''"
-                                       onblur="this.placeholder = 'آدرس ایمیل'" required="" type="email">
-                                <button class="mr-20 primary_btn yellow_btn btn sub-btn rounded">اشتراک در خبرنامه
-                                </button>
-                            </div>
-                            <div class="info"></div>
-                        </form>
+        <div class="row text-center">
+            <div class="col-lg-5 col-md-4 col-sm-12">
+                <h1 class="text-white">آیا مایلید از ما بیشتر بدانید؟</h1>
+            </div>
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <form method="post" class="subscribe_form relative"
+                      action="https://kindcard.us20.list-manage.com/subscribe/post?u=b69469a39e542a58890b2bda5&amp;id=b0dab3bcd5">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-8 col-sm-12">
+                            <input name="EMAIL" type="email" placeholder="آدرس ایمیل شما" required=""
+                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'آدرس ایمیل'">
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-sm-12">
+                            <button class="primary_btn yellow_btn btn sub-btn rounded">اشتراک در خبرنامه</button>
+                        </div>
                     </div>
-                </div>
+                    <div class="info"></div>
+                </form>
             </div>
         </div>
     </div>
@@ -429,8 +429,9 @@
         <div class="container">
             <div class="row d-flex">
                 <p class="col-lg-12 footer-text text-center">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy; <script>document.write(new Date().getFullYear());</script><br>
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script>
+                    <br>
                     تمام حقوق متعلق به حساب مهربانی می‌باشد. ساخته شده با
                     <i class="fa fa-heart-o" aria-hidden="true"></i> توسط
                     <a href="https://ultimate-developers.ir" target="_blank">نهایت توسعه</a>

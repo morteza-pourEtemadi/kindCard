@@ -733,7 +733,7 @@ button:focus {
       .subscribe_area .subscribe_form {
         margin: 0 auto; } }
     .subscribe_area .subscribe_form input {
-      min-width: 300px;
+      width: 85%;
       background: #ffffff;
       border-radius: 5px;
       border: 0px;
@@ -741,7 +741,7 @@ button:focus {
       padding: 12px 20px; }
       @media (max-width: 767px) {
         .subscribe_area .subscribe_form input {
-          min-width: 210px;
+          width: 95%;
           margin-bottom: 15px; } }
       .subscribe_area .subscribe_form input:focus {
         outline: none; }
