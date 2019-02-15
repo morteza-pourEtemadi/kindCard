@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title><!doctype html>
-        <html xmlns="http://www.w3.org/1999/xhtml"
-        >
+        <html xmlns="http://www.w3.org/1999/xhtml">
         <head>
             <!-- NAME: SELL PRODUCTS -->
             <!--[if gte mso 15]>
@@ -537,7 +536,7 @@
 
 
                                                                 <img alt=""
-                                                                     src="https://gallery.mailchimp.com/48c8fefb72058d2469208026e/images/3b1614c3-d56e-4e60-bc18-d6f2c7a7eaaa.png"
+                                                                     src="https://gallery.mailchimp.com/b69469a39e542a58890b2bda5/images/3c91a515-1b9a-4187-baa7-f1e65bf47c72.png"
                                                                      style="max-width: 150px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;"
                                                                      class="mcnImage" width="150" align="middle">
 
@@ -872,7 +871,7 @@
                                                                                                                             valign="middle"
                                                                                                                             align="center"
                                                                                                                             style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                                                                            <a href="http://www.linkedin.com"
+                                                                                                                            <a href="https://linkedin.com/in/morteza-pouretemadi/"
                                                                                                                                target="_blank"
                                                                                                                                style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img
                                                                                                                                         src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-linkedin-48.png"
@@ -937,7 +936,7 @@
                                                                                                                             valign="middle"
                                                                                                                             align="center"
                                                                                                                             style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                                                                            <a href="http://instagram.com"
+                                                                                                                            <a href="https://instagram.com/__ultimate_developer__"
                                                                                                                                target="_blank"
                                                                                                                                style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img
                                                                                                                                         src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-instagram-48.png"
@@ -1001,76 +1000,10 @@
                                                                                                                             valign="middle"
                                                                                                                             align="center"
                                                                                                                             style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                                                                            <a href="mailto:your@email.com"
+                                                                                                                            <a href="mailto:admin@kindcard.ir"
                                                                                                                                target="_blank"
                                                                                                                                style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img
                                                                                                                                         src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-forwardtofriend-48.png"
-                                                                                                                                        style="display: block;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;"
-                                                                                                                                        class=""
-                                                                                                                                        width="24"
-                                                                                                                                        height="24"></a>
-                                                                                                                        </td>
-
-
-                                                                                                                    </tr>
-                                                                                                                    </tbody>
-                                                                                                                </table>
-                                                                                                            </td>
-                                                                                                        </tr>
-                                                                                                        </tbody>
-                                                                                                    </table>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            </tbody>
-                                                                                        </table>
-
-                                                                                        <!--[if mso]>
-                                                                                        </td>
-                                                                                        <![endif]-->
-
-                                                                                        <!--[if mso]>
-                                                                                        <td align="center" valign="top">
-                                                                                        <![endif]-->
-
-
-                                                                                        <table style="display: inline;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"
-                                                                                               cellspacing="0"
-                                                                                               cellpadding="0"
-                                                                                               border="0" align="left">
-                                                                                            <tbody>
-                                                                                            <tr>
-                                                                                                <td style="padding-right: 0;padding-bottom: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"
-                                                                                                    class="mcnFollowContentItemContainer"
-                                                                                                    valign="top">
-                                                                                                    <table class="mcnFollowContentItem"
-                                                                                                           width="100%"
-                                                                                                           cellspacing="0"
-                                                                                                           cellpadding="0"
-                                                                                                           border="0"
-                                                                                                           style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                                                        <tbody>
-                                                                                                        <tr>
-                                                                                                            <td style="padding-top: 5px;padding-right: 10px;padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"
-                                                                                                                valign="middle"
-                                                                                                                align="left">
-                                                                                                                <table width=""
-                                                                                                                       cellspacing="0"
-                                                                                                                       cellpadding="0"
-                                                                                                                       border="0"
-                                                                                                                       align="left"
-                                                                                                                       style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                                                                    <tbody>
-                                                                                                                    <tr>
-
-                                                                                                                        <td class="mcnFollowIconContent"
-                                                                                                                            width="24"
-                                                                                                                            valign="middle"
-                                                                                                                            align="center"
-                                                                                                                            style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                                                                                            <a href="http://plus.google.com"
-                                                                                                                               target="_blank"
-                                                                                                                               style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img
-                                                                                                                                        src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-googleplus-48.png"
                                                                                                                                         style="display: block;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;"
                                                                                                                                         class=""
                                                                                                                                         width="24"
@@ -1131,11 +1064,5 @@
         </tr>
     </table>
 </center>
-</body>
-</html>
-</title>
-</head>
-<body>
-
 </body>
 </html>

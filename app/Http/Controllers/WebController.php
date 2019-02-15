@@ -149,9 +149,9 @@ class WebController extends Controller
         } else {
             try {
                 $mail = Mail::to('e.morteza94@gmail.com')->send(new NewContactUsEmail($request->post('name'), $request->post('email'), $request->post('text')));
-                logger(json_encode($mail));
+                logger($mail);
             } catch (\Exception $e) {
-                logger(json_encode($e));
+                logger($e);
             }
             return response()->json(['status' => 'success', 'message' => 'EIO']);
         }
