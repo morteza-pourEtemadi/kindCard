@@ -172,7 +172,7 @@
                 }
 
                 #templateHeader {
-                    background-color: #3d3953;
+                    background-color: #408007;
                     background-image: none;
                     background-repeat: no-repeat;
                     background-position: center;
@@ -504,7 +504,7 @@
                        style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                     <tr>
                         <td align="center" valign="top" id="templateHeader" data-template-container=""
-                            style="background:#3d3953 none no-repeat center/cover;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #3d3953;background-image: none;background-repeat: no-repeat;background-position: center;background-size: cover;border-top: 0;border-bottom: 0;padding-top: 45px;padding-bottom: 45px;">
+                            style="background:#408007 none no-repeat center/cover;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #408007;background-image: none;background-repeat: no-repeat;background-position: center;background-size: cover;border-top: 0;border-bottom: 0;padding-top: 45px;padding-bottom: 45px;">
                             <!--[if (gte mso 9)|(IE)]>
                             <table align="center" border="0" cellspacing="0" cellpadding="0" width="600"
                                    style="width:600px;">
@@ -576,8 +576,7 @@
                                                                 style="padding: 0px 18px 9px;color: #FFFFFF;font-family: Tahoma ; font-size: 36px;font-style: normal;font-weight: normal;line-height: 125%;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;"
                                                                 valign="top">
 
-                                                                <div style="text-align: center;">سامانه نگرش جامع منابع
-                                                                    انسانی
+                                                                <div style="text-align: center;">حساب مهربانی
                                                                 </div>
 
                                                             </td>
