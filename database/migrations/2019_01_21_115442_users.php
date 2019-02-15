@@ -22,6 +22,7 @@ class Users extends Migration
             $table->string('code', 8)->nullable();
             $table->tinyInteger('status', false, true)->default(1);
             $table->longText('activity')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }

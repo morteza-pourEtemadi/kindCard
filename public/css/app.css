@@ -1108,6 +1108,12 @@ a, p, span, h1, h2, h3, h4, h5, h6, button, input, pre, li, div {
 .f-700 {
     font-weight: 700 !important;
 }
+.loading {
+    width: 15px;
+    margin: auto;
+    padding-bottom: 10px;
+    display: none;
+}
 /*color: #3cc6ed;*/
 /*color: #5ce5aa;*/
 /*color: #f197a2;*/

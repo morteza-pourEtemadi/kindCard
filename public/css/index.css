@@ -52,3 +52,14 @@
 .sub-btn {
     color: black !important;
 }
+.numBadge {
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 100;
+}
+.modal {
+    z-index: 100000000;
+}
+.primary_btn {
+    color: #fff !important;
+}

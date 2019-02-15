@@ -2,16 +2,20 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
+    use Notifiable;
+
     const STATUS_NOT_PAYED = 1;
     const STATUS_PAYED = 2;
     const STATUS_RECEIVED = 3;
 
     protected $fillable = [
-        'telegram_id', 'name', 'last_name', 'username', 'code', 'activity', 'status'
+        'telegram_id', 'name', 'last_name', 'username', 'code', 'activity', 'password', 'status'
     ];
 
     /**
