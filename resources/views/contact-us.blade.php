@@ -13,8 +13,8 @@
                 <h2>تماس با ما</h2>
             </div>
             <div class="row team_inner pb-5" dir="rtl">
-                <div class="col-xl-6 col-ls-6 col-sm-6 px-5 py-5">
-                    <div class="row bg-navy p-3 m-3 text-right">
+                <div class="col-xl-6 col-ls-6 col-sm-6 px-5 px-sm-0 py-5">
+                    <div class="row bg-navy p-lg-3 p-md-3 m-lg-3 m-md-3 text-right">
                         <div class="col-sm-2 col-xs-2"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
                         <div class="col-sm-10 col-xs-10">
                             <h3>ایمیل ادمین مجموعه</h3>
