@@ -211,6 +211,8 @@ class WithdrawalJob extends Job
                 $withdrawal = Withdrawal::query()->find($activity['wid']);
                 if ($activity['subStep'] == 1) {
                     $category = $this->getCategory($this->update->getMessage()->text);
+                    $category->spent += $withdrawal->price;
+                    $category->save();
                     $withdrawal->category()->associate($category);
 
                     $keyboard = Keyboard::inlineButton([
