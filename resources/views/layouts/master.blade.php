@@ -70,7 +70,7 @@
             }
         });
         $({countNum: 0}).animate({countNum: $('#balance-{{$i}}').data('val')}, {
-            duration: 5000,
+            duration: 2000,
             easing: 'linear',
             step: function () {
                 $('#balance-{{$i}}').text(Math.floor(this.countNum) + ' تومان');
